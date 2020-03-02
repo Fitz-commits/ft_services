@@ -1,7 +1,7 @@
 FROM alpine:3.7
 RUN apk update
-RUN apk add -y nginx
-RUN apk add -y openssl
+RUN apk add nginx
+RUN apk add openssl
 RUN apk add bash
 RUN apk add php7-fpm
 COPY ./srcs/wordpress /var/www/wordpress
