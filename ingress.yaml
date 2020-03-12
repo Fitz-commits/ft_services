@@ -4,5 +4,5 @@ metadata:
   name: test-ingress
 spec:
   backend:
-    serviceName: grafana
-    servicePort: 3000
+    serviceName: nginx
+    servicePort: 80

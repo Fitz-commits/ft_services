@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: telegraf
+spec:
+  selector:
+    matchLabels:
+      app: telegraf
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: telegraf
+    spec:
+      containers:
+        - image: telegraf19
+          imagePullPolicy: Never
+          name: telegraf
+          volumeMounts:
+          - name: dockersock
+            mountPath: "/var/run/docker.sock"
+          envFrom:
+            - secretRef:
+                name: telegraf-secrets
+      volumes:
+      - name: dockersock
+        hostPath:
+          path: /var/run/docker.sock
