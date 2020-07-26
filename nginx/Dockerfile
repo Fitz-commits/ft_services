@@ -8,7 +8,7 @@ RUN apk add openssh && \
 	rc-update add sshd && \
 	rc-status && \
 	touch /run/openrc/softlevel &&\
-	echo "port 21" >> /etc/ssh/sshd_config &&\
+	echo "port 22" >> /etc/ssh/sshd_config &&\
 	echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config && \
 	adduser chris --disabled-password && \
 	passwd -d chris
@@ -20,6 +20,6 @@ COPY ./srcs/index.html /var/www/
 COPY ./srcs/nginx.conf /etc/nginx/conf.d
 RUN mkdir -p /run/nginx
 
-EXPOSE 443 80 21/tcp
+EXPOSE 443 80 22/tcp
 
 CMD /etc/init.d/sshd start && nginx "-g daemon off;" 
