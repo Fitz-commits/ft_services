@@ -6,6 +6,7 @@
 -- Generation Time: Jul 30, 2020 at 05:12 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.3.20
+USE wordpress;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;

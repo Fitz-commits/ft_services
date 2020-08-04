@@ -1,6 +1,5 @@
 #! /bin/ash
 #echo "phpmyadmin.default.svc.cluster.local          localhost" >> /etc/hosts
-ls
 nohup /tmp/init_sql.sh &
 
 /usr/bin/mysql_install_db --user=mysql --datadir="/var/lib/mysql"

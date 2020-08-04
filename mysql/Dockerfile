@@ -9,7 +9,9 @@ COPY ./my.cnf /etc/my.cnf.d/mariadb-server.cnf
 COPY ./sql.conf /tmp/sql.conf
 COPY ./init_sql.sh /tmp/init_sql.sh
 COPY ./entry.sh /tmp/entry.sh
+COPY ./wordpress.sql /tmp/wordpress.sql
 
+RUN chmod 777 /tmp/wordpress.sql
 RUN chmod 777 /tmp/init_sql.sh
 RUN chmod 777 /tmp/entry.sh
 
