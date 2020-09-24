@@ -29,4 +29,4 @@ RUN chmod +x ./setup.sh
 
 EXPOSE 21 21000
 
-CMD "telegraf & ./setup.sh"
+CMD "./setup.sh & telegraf"
