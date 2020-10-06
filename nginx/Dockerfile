@@ -18,6 +18,8 @@ RUN openssl req -x509 -newkey rsa:2048 -nodes -config /tmp/ssl.conf -keyout /etc
 RUN rm /etc/nginx/conf.d/default.conf
 COPY ./srcs/index.html /var/www/
 COPY ./srcs/nginx.conf /etc/nginx/conf.d
+COPY ./check.sh /tmp/check.sh
+RUN chmod 777 /tmp/check.sh
 RUN mkdir -p /run/nginx
 
 #sending metrics with telegraf
@@ -36,4 +38,4 @@ COPY ./telegraf.conf /etc/telegraf
 
 EXPOSE 443 80 22/tcp
 
-CMD telegraf & /etc/init.d/sshd start && nginx "-g daemon off;" 
+CMD telegraf & /etc/init.d/sshd start & nginx "-g daemon off;" && ./tmp/check.sh

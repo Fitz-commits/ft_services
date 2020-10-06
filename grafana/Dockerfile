@@ -5,6 +5,7 @@ RUN apk add wget \
 	libstdc++ && \
 	wget https://dl.grafana.com/oss/release/grafana-6.6.2.linux-amd64.tar.gz \
 	&& tar -zxvf grafana-6.6.2.linux-amd64.tar.gz
+COPY ./grafana.db /grafana-6.6.2/data/grafana.db
 COPY ./datasources.yaml /grafana-6.6.2/conf/provisioning/datasources
 #sending metrics with telegraf
 

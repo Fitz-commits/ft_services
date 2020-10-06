@@ -1,15 +1,14 @@
 FROM alpine
 
 ENV phpv 5.0.1
-
 RUN apk add php php-fpm php-session php-mysqli wget composer && \
     mkdir /var/www && \
     wget https://files.phpmyadmin.net/phpMyAdmin/${phpv}/phpMyAdmin-${phpv}-english.tar.gz && \
     tar -C /var/www -xvf phpMyAdmin-${phpv}-english.tar.gz && \
-    mv /var/www/phpMyAdmin-${phpv}-english /var/www/phpMyAdmin && \
-    mv /var/www/phpMyAdmin/config.sample.inc.php /var/www/phpMyAdmin/config.inc.php && \
-    sed -i 's+localhost+mysql.default.svc.cluster.local+g' /var/www/phpMyAdmin/config.inc.php
-
+    mv /var/www/phpMyAdmin-${phpv}-english /var/www/phpMyAdmin
+    #mv /var/www/phpMyAdmin/config.sample.inc.php /var/www/phpMyAdmin/config.inc.php && \
+    #sed -i 's+localhost+mysql:3306+g' /var/www/phpMyAdmin/config.inc.php
+COPY ./config.inc.php /var/www/phpMyAdmin/config.inc.php
 #sending metrics with telegraf
 
 ENV TELEGRAF_VERSION 1.11.5

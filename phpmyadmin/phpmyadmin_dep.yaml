@@ -5,11 +5,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      run: phpmyadmin
+      app: phpmyadmin
   template:
     metadata:
       labels:
-        run: phpmyadmin
+        app: phpmyadmin
     spec:
       containers:
       - name: phpmyadmin
