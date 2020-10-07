@@ -1,0 +1,32 @@
+FROM alpine
+
+
+RUN apk upgrade && \
+    printf '%s\n' \
+      '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
+      >> /etc/apk/repositories  && \
+    apk update &&  \
+    apk  add openssl pure-ftpd@testing="1.0.49-r1" && \
+    mkdir -p /ftps/chris && \
+    rm -rf /var/cache/apk/*
+
+#sending metrics with telegraf
+
+ENV TELEGRAF_VERSION 1.11.5
+RUN wget --no-verbose https://dl.influxdata.com/telegraf/releases/telegraf-${TELEGRAF_VERSION}-static_linux_amd64.tar.gz && \
+    mkdir -p /usr/src /etc/telegraf && \
+    tar -C /usr/src -xzf telegraf-${TELEGRAF_VERSION}-static_linux_amd64.tar.gz && \
+    mv /usr/src/telegraf*/telegraf.conf /etc/telegraf/ && \
+    chmod +x /usr/src/telegraf*/* && \
+    cp -a /usr/src/telegraf*/* /usr/bin/ && \
+    rm -rf *.tar.gz* /usr/src && \
+	rm /etc/telegraf/telegraf.conf
+COPY ./telegraf.conf /etc/telegraf
+
+COPY ./setup.sh /setup.sh
+
+RUN chmod +x ./setup.sh
+
+EXPOSE 21 21000
+
+CMD telegraf & ./setup.sh
